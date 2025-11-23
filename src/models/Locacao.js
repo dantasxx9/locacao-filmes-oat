@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const LocacaoSchema = new mongoose.Schema({
   cliente: { type: mongoose.Schema.Types.ObjectId, ref: "Cliente", required: true },
@@ -8,4 +8,4 @@ const LocacaoSchema = new mongoose.Schema({
   devolvido: { type: Boolean, default: false }
 });
 
-module.exports = mongoose.model("Locacao", LocacaoSchema);
+export default mongoose.model("Locacao", LocacaoSchema);

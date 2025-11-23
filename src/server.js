@@ -1,11 +1,15 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 
-const filmeRoutes = require("./routes/filmeRoutes");
-const clienteRoutes = require("./routes/clienteRoutes");
-const locacaoRoutes = require("./routes/locacaoRoutes");
+import filmeRoutes from "./routes/filmeRoutes.js";
+import clienteRoutes from "./routes/clienteRoutes.js";
+import locacaoRoutes from "./routes/locacaoRoutes.js";
+
+import swaggerSpec from "./config/swagger.js";
+import { apiReference } from "@scalar/express-api-reference";
 
 const app = express();
 
@@ -21,9 +25,6 @@ app.use("/filmes", filmeRoutes);
 app.use("/clientes", clienteRoutes);
 app.use("/locacoes", locacaoRoutes);
 
-const swaggerSpec = require("./config/swagger");
-const { apiReference } = require("@scalar/express-api-reference");
-
 app.use(
   "/docs",
   apiReference({
@@ -37,8 +38,14 @@ app.use(
 
 const PORT = process.env.PORT || 3000;
 
-if (require.main === module) {
+// In ESM, require.main === module is not available.
+// We can check if the file is being run directly by comparing import.meta.url
+// However, for Vercel, we generally export the app.
+// We will listen only if not in a serverless environment (or if run directly locally)
+// A simple way is to check if we are in production/vercel environment or just run it.
+// But to keep it close to original logic:
+if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
 }
 
-module.exports = app;
+export default app;

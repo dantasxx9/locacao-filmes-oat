@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const Locacao = require("../models/Locacao");
+import Locacao from "../models/Locacao.js";
 
 // CREATE – POST /locacoes
 router.post("/", async (req, res) => {
@@ -50,4 +50,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
