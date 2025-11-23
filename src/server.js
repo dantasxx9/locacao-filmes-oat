@@ -36,4 +36,9 @@ app.use(
 );
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
+
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
+}
+
+module.exports = app;
