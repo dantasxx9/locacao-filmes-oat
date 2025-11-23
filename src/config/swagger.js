@@ -10,9 +10,13 @@ const options = {
     },
     servers: [
       {
+        url: "locacao-filmes-oat.vercel.app",
+	description: "Servidor de Produção
+      },
+      {
         url: "http://localhost:3000",
         description: "Servidor Local",
-      },
+      }
     ],
     components: {
       schemas: {
